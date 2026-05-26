@@ -105,9 +105,16 @@
                           CanUserAddRows="False"
                           HeadersVisibility="Column"
                           GridLinesVisibility="None"
-                           
+                           RowHeaderWidth="0"
                           RowHeight="38">
+                    <DataGrid.RowHeaderStyle>
+                        <Style TargetType="DataGridRowHeader">
+                            <Setter Property="Visibility" Value="Collapsed"/>
+                        </Style>
+                    </DataGrid.RowHeaderStyle>
                     <DataGrid.Columns>
+                        <DataGridCheckBoxColumn Header="선택" Width="50" x:Name="CheckBox" Binding="{Binding CHK}"/>
+                       
                         <DataGridTextColumn Header="비품명" Binding="{Binding NAME}" Width="100" />
                         <DataGridTextColumn Header="카테고리" Binding="{Binding CATEGORY}" Width="100" />
                         <DataGridTextColumn Header="수량" Binding="{Binding QUANTITY}" Width="100" />
@@ -163,20 +170,16 @@
             Foreground="White"
             BorderThickness="0"/>
 
-                    <Button Content="저장"
-            Width="70"
-            Height="32"
-            Margin="0,0,8,0"
-            Background="#3498DB"
-            Foreground="White"
-            BorderThickness="0"/>
+           
 
-                    <Button Content="삭제"
+           <Button Content="삭제"
             Width="70"
             Height="32"
             Background="#E74C3C"
             Foreground="White"
-            BorderThickness="0"/>
+            BorderThickness="0"
+            Click="DeleteBtn_Click"       
+                   />
 
                 </StackPanel>
             </StackPanel>
