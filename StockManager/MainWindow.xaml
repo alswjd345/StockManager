@@ -34,7 +34,8 @@
                 <StackPanel Orientation="Horizontal"
                             HorizontalAlignment="Right"
                             VerticalAlignment="Center">
-                    <TextBox Width="220"
+                    <TextBox x:Name="SearchTxt" 
+                             Width="220"
                              Height="34"
                              Margin="0,0,10,0"
                              Padding="10,0"
@@ -50,7 +51,9 @@
                             Height="34"
                             Background="#3498DB"
                             Foreground="White"
-                            BorderThickness="0"/>
+                            BorderThickness="0"
+                            Click="SearchBtn_Click"
+                        />
                 </StackPanel>
             </Grid>
         </Border>

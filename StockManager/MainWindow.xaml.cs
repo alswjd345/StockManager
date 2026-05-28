@@ -132,7 +132,10 @@ namespace StockManager
 
                 MessageBox.Show("추가 완료");
 
+
                 sql.Close();
+
+                Get_List();
             }
         }
 
@@ -171,6 +174,29 @@ namespace StockManager
             }
             MessageBox.Show("삭제 완료");
             Get_List();
+        }
+
+        private void SearchBtn_Click(object sender, RoutedEventArgs e)
+        {
+            SqliteConnection sql = new SqliteConnection("Data Source=Equipment.db");
+            sql.Open();
+
+            string search_txt = SearchTxt.Text.Trim();
+            string search_combo = ComboCate.Text;
+
+
+            string SQL = $@"
+                            SELECT * FROM Equipment
+                            WHERE NAME = '{search_txt}'
+                            AND CATEGORY = '{search_combo}'";
+
+
+            SqliteCommand cmd = new SqliteCommand(SQL, sql);
+            SqliteDataReader reader = cmd.ExecuteReader();
+            DataTable dt = new DataTable();
+            dt.Load(reader);
+
+            gridresult.ItemsSource = dt.DefaultView;
         }
     }
  
