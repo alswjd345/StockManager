@@ -24,6 +24,7 @@ namespace StockManager
     /// </summary>
     public partial class MainWindow : Window
     {
+        private int selectedId;
         public MainWindow()
         {
             InitializeComponent();
@@ -197,6 +198,80 @@ namespace StockManager
             dt.Load(reader);
 
             gridresult.ItemsSource = dt.DefaultView;
+        }
+
+        private void EditBtn_Click(object sender, RoutedEventArgs e)
+        {
+            DataView dt = (DataView)gridresult.ItemsSource;
+            DataView view = gridresult.ItemsSource as DataView;
+            int count = 0;
+            gridresult.CommitEdit();
+
+            foreach (DataRowView row in view)
+            {
+                bool isChecked = (bool)row["CHK"];
+                DataRowView checkedRow = null;
+                if (isChecked == true)
+                {
+                    count++;
+                    checkedRow = row;
+                    if (count == 1)
+                    {
+                        AsName.Text = checkedRow["NAME"].ToString();
+                        ComboCate2.SelectedItem = checkedRow["CATEGORY"].ToString();
+                        AsQna.Text = checkedRow["QUANTITY"].ToString();
+                        AsLocation.Text = checkedRow["LOCATION"].ToString();
+                        Asmemo.Text = checkedRow["MEMO"].ToString();
+                        selectedId = Convert.ToInt32(row["ID"]);
+                    }
+                }
+                
+            }
+            if (count >= 2)
+            {
+                MessageBox.Show("수정할 비품을 하나만 선택해주세요");
+                return; 
+            }
+            if (count == 0)
+            {
+                MessageBox.Show("수정할 비품을 선택해주세요");
+                return;
+            }
+           
+        }
+
+        private void SaveBtn_Click(object sender, RoutedEventArgs e)
+        {
+            string name = AsName.Text;
+            string combo= ComboCate2.SelectedItem.ToString();
+            int qna=int.Parse(AsQna.Text);
+            string location=AsLocation.Text;
+            string memo=Asmemo.Text;
+            
+
+            SqliteConnection sql = new SqliteConnection("Data Source=Equipment.db");
+            sql.Open();
+
+           
+            string SQL = $@"
+                        UPDATE  Equipment SET
+                        NAME='{name}',CATEGORY='{combo}' ,QUANTITY='{qna}', LOCATION ='{location}', MEMO ='{memo}'
+                       WHERE ID = {selectedId}";
+
+
+            SqliteCommand cmd = new SqliteCommand(SQL, sql);
+            int result= cmd.ExecuteNonQuery();
+            if (result > 0)
+            {
+                MessageBox.Show("수정이 완료되었습니다.");
+                Get_List();
+            }
+            else
+            {
+                MessageBox.Show("수정할 데이터를 찾을 수 없습니다.");
+            }
+            
+
         }
     }
  

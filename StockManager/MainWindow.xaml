@@ -118,6 +118,7 @@
                     <DataGrid.Columns>
                         <DataGridCheckBoxColumn Header="선택" Width="50" x:Name="CheckBox" Binding="{Binding CHK}"/>
                        
+                        <DataGridTextColumn Header="ID" Binding="{Binding ID}" Width="100" Visibility="Collapsed"/>
                         <DataGridTextColumn Header="비품명" Binding="{Binding NAME}" Width="100" />
                         <DataGridTextColumn Header="카테고리" Binding="{Binding CATEGORY}" Width="100" />
                         <DataGridTextColumn Header="수량" Binding="{Binding QUANTITY}" Width="100" />
@@ -165,7 +166,7 @@
                 <StackPanel Orientation="Horizontal"
             HorizontalAlignment="Center">
 
-                <Button Content="비품 추가" Click="Add_AssetItem_Click"
+                    <Button Content="비품 추가" Click="Add_AssetItem_Click"
             Width="70"
             Height="32"
             Margin="0,0,8,0"
@@ -173,16 +174,34 @@
             Foreground="White"
             BorderThickness="0"/>
 
-           
 
-           <Button Content="삭제"
-            Width="70"
-            Height="32"
-            Background="#E74C3C"
-            Foreground="White"
-            BorderThickness="0"
-            Click="DeleteBtn_Click"       
-                   />
+            <Button Content="수정"
+              Width="50"
+              Height="32"
+              Background="Gray"
+              Foreground="White" 
+              Margin="0,0,8,0"   
+              Click="EditBtn_Click"      
+                    />
+
+               <Button Content="저장"
+              Width="50"
+              Height="32"
+              Background="Gray"
+              Foreground="White" 
+              Margin="0,0,8,0"   
+              Click="SaveBtn_Click"      
+                    />
+
+                    <Button Content="삭제"
+                 Width="50"
+                 Height="32"
+                 Background="#E74C3C"
+                 Foreground="White"
+                 BorderThickness="0"
+                
+                 Click="DeleteBtn_Click"       
+                        />
 
                 </StackPanel>
             </StackPanel>
