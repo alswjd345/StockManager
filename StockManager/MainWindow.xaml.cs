@@ -61,7 +61,18 @@ namespace StockManager
             SqliteConnection sql = new SqliteConnection("Data Source=Equipment.db");
             sql.Open();
 
-            string SQL = @"SELECT * FROM Equipment";
+            string SQL = @"SELECT ID,
+				NAME,
+				CATEGORY,
+				QUANTITY,
+				LOCATION,
+				CASE WHEN QUANTITY =0  THEN '재고 없음' 
+				WHEN  QUANTITY<=2 THEN '재고 소량'
+				WHEN  QUANTITY >=3 THEN '재고 충분'
+				ELSE  '-'
+                END AS STATUS,
+				MEMO
+                FROM Equipment ;";
 
             SqliteCommand cmd = new SqliteCommand(SQL, sql);
             SqliteDataReader reader = cmd.ExecuteReader();
