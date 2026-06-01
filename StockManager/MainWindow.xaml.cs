@@ -52,7 +52,7 @@ namespace StockManager
             SqliteCommand cmd = new SqliteCommand(query, sql);
             cmd.ExecuteNonQuery();
 
-            
+
 
             sql.Close();
         }
@@ -85,12 +85,12 @@ namespace StockManager
                 row["CHK"] = false;
             }
             gridresult.ItemsSource = dt.DefaultView;
-            
+
             sql.Close();
 
 
 
-       
+
 
         }
         private void Get_Category()
@@ -109,7 +109,7 @@ namespace StockManager
             ComboCate2.SelectedIndex = 0;
         }
 
-      
+
         private bool vaid_check()
         {
             if (string.IsNullOrEmpty(AsName.Text) || string.IsNullOrEmpty(AsQna.Text) || string.IsNullOrEmpty(AsLocation.Text))
@@ -153,7 +153,7 @@ namespace StockManager
 
         private void DeleteBtn_Click(object sender, RoutedEventArgs e)
         {
-            MessageBoxResult result = MessageBox.Show("정말 삭제하시겠습니까?","삭제 확인", MessageBoxButton.YesNo, MessageBoxImage.Question);
+            MessageBoxResult result = MessageBox.Show("정말 삭제하시겠습니까?", "삭제 확인", MessageBoxButton.YesNo, MessageBoxImage.Question);
 
             if (result == MessageBoxResult.Yes)
             {
@@ -170,15 +170,15 @@ namespace StockManager
                         string SQL = $@"
                         DELETE FROM Equipment
                         WHERE ID = {id}";
-                        
+
 
                         SqliteCommand cmd = new SqliteCommand(SQL, sql);
                         cmd.ExecuteNonQuery();
 
-                        
+
 
                         sql.Close();
-                       
+
                     }
                 }
 
@@ -236,54 +236,84 @@ namespace StockManager
                         selectedId = Convert.ToInt32(row["ID"]);
                     }
                 }
-                
+
             }
             if (count >= 2)
             {
                 MessageBox.Show("수정할 비품을 하나만 선택해주세요");
-                return; 
+                return;
             }
             if (count == 0)
             {
                 MessageBox.Show("수정할 비품을 선택해주세요");
                 return;
             }
-           
+
         }
 
         private void SaveBtn_Click(object sender, RoutedEventArgs e)
         {
-            string name = AsName.Text;
-            string combo= ComboCate2.SelectedItem.ToString();
-            int qna=int.Parse(AsQna.Text);
-            string location=AsLocation.Text;
-            string memo=Asmemo.Text;
-            
+          
 
-            SqliteConnection sql = new SqliteConnection("Data Source=Equipment.db");
-            sql.Open();
+            if (vaild_check())
+            {
+                string name = AsName.Text;
+                string combo = ComboCate2.SelectedItem.ToString();
+                int qna = int.Parse(AsQna.Text);
+                string location = AsLocation.Text;
+                string memo = Asmemo.Text;
+                SqliteConnection sql = new SqliteConnection("Data Source=Equipment.db");
+                sql.Open();
 
-           
-            string SQL = $@"
+
+                string SQL = $@"
                         UPDATE  Equipment SET
                         NAME='{name}',CATEGORY='{combo}' ,QUANTITY='{qna}', LOCATION ='{location}', MEMO ='{memo}'
                        WHERE ID = {selectedId}";
 
 
-            SqliteCommand cmd = new SqliteCommand(SQL, sql);
-            int result= cmd.ExecuteNonQuery();
-            if (result > 0)
+                SqliteCommand cmd = new SqliteCommand(SQL, sql);
+                int result = cmd.ExecuteNonQuery();
+                if (result > 0)
+                {
+                    MessageBox.Show("수정이 완료되었습니다.");
+                    Get_List();
+                }
+                else
+                {
+                    MessageBox.Show("수정할 데이터를 찾을 수 없습니다.");
+                }
+            }
+
+         
+
+
+        }
+        private bool vaild_check()
+        {
+            string name = AsName.Text;
+            string combo = ComboCate2.SelectedItem.ToString();
+            string qna = AsQna.Text;
+            string location = AsLocation.Text;
+            string memo = Asmemo.Text;
+
+            if (string.IsNullOrEmpty(name) || string.IsNullOrEmpty(location) || string.IsNullOrEmpty(qna))
             {
-                MessageBox.Show("수정이 완료되었습니다.");
-                Get_List();
+                MessageBox.Show("빈칸을 입력해주세요");
+                return false;
+            }else if (!int.TryParse(qna, out int result))
+            {
+                MessageBox.Show("수량은 숫자만 입력해주세요.");
+                return false;
             }
             else
             {
-                MessageBox.Show("수정할 데이터를 찾을 수 없습니다.");
+                return true;
             }
-            
-
         }
+
+
     }
- 
+    
+    
 }
