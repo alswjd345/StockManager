@@ -68,14 +68,17 @@
                         Margin="0,0,0,10"
                         Background="#34495E"
                         Foreground="White"
-                        BorderThickness="0"/>
+                        BorderThickness="0"
+                        Click="GetList_Click"
+                       />
 
                 <Button Content="재고 부족"
                         Height="40"
                         Margin="0,0,0,10"
                         Background="Transparent"
                         Foreground="White"
-                        BorderThickness="0"/>
+                        BorderThickness="0"
+                        Click="OutOfStock_Click"/>
 
                 <Button Content="입출고 내역"
                         Height="40"
@@ -95,7 +98,8 @@
                 Padding="15"
                 >
             <DockPanel>
-                <TextBlock Text="비품 목록"
+                <TextBlock x:Name="title"
+                           Text="비품 목록"
                            FontSize="18"
                            FontWeight="Bold"
                            Foreground="#333333"

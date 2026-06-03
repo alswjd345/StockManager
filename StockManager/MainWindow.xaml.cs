@@ -312,7 +312,33 @@ namespace StockManager
             }
         }
 
+        private void OutOfStock_Click(object sender, RoutedEventArgs e)
+        {
+            SqliteConnection sql = new SqliteConnection("Data Source=Equipment.db");
+            sql.Open();
+            title.Text = "재고 부족 비품";
 
+            string SQL = $@"
+                            SELECT * FROM Equipment
+                            WHERE QUANTITY =0     
+                            "
+                        ;
+
+
+            SqliteCommand cmd = new SqliteCommand(SQL, sql);
+            SqliteDataReader reader = cmd.ExecuteReader();
+            DataTable dt = new DataTable();
+            dt.Load(reader);
+            
+            
+            gridresult.ItemsSource = dt.DefaultView;
+        }
+
+        private void GetList_Click(object sender, RoutedEventArgs e)
+        {
+            Get_List();
+            title.Text = "전체 비품";
+        }
     }
     
     
