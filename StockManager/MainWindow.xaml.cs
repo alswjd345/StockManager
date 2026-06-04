@@ -82,15 +82,19 @@ namespace StockManager
             dt.Columns.Add("CHK", typeof(bool));
             foreach (DataRow row in dt.Rows)
             {
+             
                 row["CHK"] = false;
             }
+            
             gridresult.ItemsSource = dt.DefaultView;
 
+            
             sql.Close();
 
+        }
 
-
-
+        private void Grid_Change_Color()
+        {
 
         }
         private void Get_Category()

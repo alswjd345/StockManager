@@ -7,6 +7,9 @@
         xmlns:local="clr-namespace:StockManager"
         mc:Ignorable="d"
         Title="MainWindow" Height="750" Width="1100">
+   
+       
+    
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="190"/>
@@ -18,8 +21,9 @@
             <RowDefinition Height="70"/>
             <RowDefinition Height="*"/>
         </Grid.RowDefinitions>
-
+       
         
+
         <Border Grid.ColumnSpan="3"
                 Background="White"
                 BorderBrush="#DDDDDD"
@@ -127,7 +131,27 @@
                         <DataGridTextColumn Header="카테고리" Binding="{Binding CATEGORY}" Width="100" />
                         <DataGridTextColumn Header="수량" Binding="{Binding QUANTITY}" Width="100" />
                         <DataGridTextColumn Header="위치" Binding="{Binding LOCATION}" Width="100" />
-                        <DataGridTextColumn Header="상태" Binding="{Binding STATUS}" Width="100" />
+                        <DataGridTextColumn Header="상태" Binding="{Binding STATUS}" Width="100">
+                            <DataGridTextColumn.ElementStyle>
+                                <Style TargetType="TextBlock">
+                                    <Style.Triggers>
+                                        <DataTrigger Binding="{Binding STATUS}" Value="재고 없음">
+                                            <Setter Property="Foreground" Value="Red"/>
+                                        </DataTrigger>
+
+                                        <DataTrigger Binding="{Binding STATUS}" Value="재고 소량">
+                                            <Setter Property="Foreground" Value="LightSalmon"/>
+                                        </DataTrigger>
+
+                                        <DataTrigger Binding="{Binding STATUS}" Value="재고 충분">
+                                            <Setter Property="Foreground" Value="Black"/>
+                                        </DataTrigger>
+                                    </Style.Triggers>
+                                </Style>
+                            </DataGridTextColumn.ElementStyle>
+                        </DataGridTextColumn>
+
+
                         <DataGridTextColumn Header="메모" Binding="{Binding MEMO}" Width="300" />
                     </DataGrid.Columns>
                 </DataGrid>
