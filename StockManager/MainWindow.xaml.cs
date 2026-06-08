@@ -31,7 +31,7 @@ namespace StockManager
             Get_List();
             Get_Category();
             sqlconnetion();
-
+            OutOfStock_Click(null,null);
 
         }
         private void sqlconnetion()
@@ -333,8 +333,10 @@ namespace StockManager
             SqliteDataReader reader = cmd.ExecuteReader();
             DataTable dt = new DataTable();
             dt.Load(reader);
-            
-            
+            int count = dt.Rows.Count;
+            OutOfStockBtn.Content = "재고부족" + " (" + count + ")";
+
+
             gridresult.ItemsSource = dt.DefaultView;
         }
 

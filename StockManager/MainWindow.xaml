@@ -76,7 +76,8 @@
                         Click="GetList_Click"
                        />
 
-                <Button Content="재고 부족"
+                <Button x:Name="OutOfStockBtn"
+                        Content="재고 부족"
                         Height="40"
                         Margin="0,0,0,10"
                         Background="Transparent"
