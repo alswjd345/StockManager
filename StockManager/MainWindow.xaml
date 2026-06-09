@@ -44,7 +44,10 @@
                              Margin="0,0,10,0"
                              Padding="10,0"
                              VerticalContentAlignment="Center"
-                             Text="검색어 입력"/>
+                             Text="검색어 입력하세요"
+                             GotFocus="Search_GotFocus"
+                             LostFocus="SearchTxt_LostFocus"
+                             />
                     <ComboBox x:Name="ComboCate" Width="120"
                               Height="34"
                               VerticalContentAlignment="Center"

@@ -345,6 +345,22 @@ namespace StockManager
             Get_List();
             title.Text = "전체 비품";
         }
+
+        private void Search_GotFocus(object sender, RoutedEventArgs e)
+        {
+            if(SearchTxt.Text=="검색어 입력하세요")
+            {
+                SearchTxt.Text = "";
+            }
+        }
+
+        private void SearchTxt_LostFocus(object sender, RoutedEventArgs e)
+        {
+            if (string.IsNullOrEmpty(SearchTxt.Text))
+            {
+                SearchTxt.Text = "검색어 입력하세요";
+            }
+        }
     }
     
     
